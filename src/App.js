@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Average from "./Average";
+import SassComponent from "./SassComponent";
 
 
 const App = () => {
-  return <Average />;
+  return <SassComponent />;
 };
 
 export default App;
