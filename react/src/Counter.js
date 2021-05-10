@@ -17,7 +17,7 @@ const Counter = () => {
   return (
     <div>
       <p>
-        현재 카운터 값은<b>{state.value}</b>입니다.
+        현재 카운터 값은<b>{state.value}</b>이다.
       </p>
       <button onClick={() => dispatch({ type: "INCREMENT" })}>+1</button>
       <button onClick={() => dispatch({ type: "DECREMENT" })}>-1</button>
