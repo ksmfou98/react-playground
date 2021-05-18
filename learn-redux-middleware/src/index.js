@@ -8,7 +8,7 @@ import rootReducer from "./modules";
 import reportWebVitals from "./reportWebVitals";
 import ReduxThunk from "redux-thunk";
 
-const store = createStore(rootReducer, applyMiddleware(logger, ReduxThunk));
+const store = createStore(rootReducer, applyMiddleware(ReduxThunk, logger));
 
 ReactDOM.render(
   <React.StrictMode>

@@ -29,6 +29,93 @@ export const getPost = (id) => async (dispatch) => {
       payload: e,
       error: true,
     }); // 에러 발생
-    throw e // 나중에 컴포넌트 단에서 에러를 조회할 수 있게 해줌
+    throw e; // 나중에 컴포넌트 단에서 에러를 조회할 수 있게 해줌
   }
 };
+
+export const getUsers = () => async (dispatch) => {
+  dispatch({ type: GET_USERS }); // 요청을 시작한 것을 알림
+  try {
+    const response = await api.getUsers();
+    dispatch({
+      type: GET_USERS_SUCCESS,
+      payload: response.data,
+    }); // 요청 성공
+  } catch (e) {
+    dispatch({
+      type: GET_USERS_FAILURE,
+      payload: e,
+      error: true,
+    }); // 에러 발생
+    throw e; // 나중에 컴포넌트 단에서 에러를 조회할 수 있게 해줌
+  }
+};
+
+// 초기 상태를 선언합니다.
+// 요청의 로딩 중 상태는 loading이라는 객체에서 관리합니다.
+
+const initialState = {
+  loading: {
+    GET_POST: false,
+    GET_USERS: false,
+  },
+  post: null,
+  users: null,
+};
+
+const sample = handleActions(
+  {
+    [GET_POST]: (state) => ({
+      ...state,
+      loading: {
+        ...state.loading,
+        GET_POST: true, // 요청 시작
+      },
+    }),
+
+    [GET_POST_SUCCESS]: (state, action) => ({
+      ...state,
+      loading: {
+        ...state.loading,
+        GET_POST: false, // 요청 완료
+      },
+      post: action.payload,
+    }),
+
+    [GET_POST_FAILURE]: (state, action) => ({
+      ...state,
+      loading: {
+        ...state.loading,
+        GET_POST: false, // 요청 완료
+      },
+    }),
+
+    [GET_USERS]: (state) => ({
+      ...state,
+      loading: {
+        ...state.loading,
+        GET_USERS: true, // 요청 시작
+      },
+    }),
+
+    [GET_USERS_SUCCESS]: (state, action) => ({
+      ...state,
+      loading: {
+        ...state.loading,
+        GET_USERS: false, // 요청 완료
+      },
+      users: action.payload,
+    }),
+
+    [GET_USERS_FAILURE]: (state, action) => ({
+      ...state,
+      loading: {
+        ...state.loading,
+        GET_USERS: false, // 요청 완료
+      },
+    }),
+  },
+  initialState
+);
+
+export default sample;
